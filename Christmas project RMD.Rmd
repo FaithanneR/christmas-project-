@@ -29,7 +29,6 @@ First we intialize the packages
 # install.packages("pdftools")
 # install.packages("tm")
 library("pdftools")
-library("ggplot2")
 library("dplyr")
 library("broom")
 library("ggplot2")
@@ -50,7 +49,9 @@ Cleaning the text documents using the text mining package.
 
 ```{r}
 ## Creating a Coprus to allow furhter text cleaning using the TM package
- LOTR.corp <- Corpus(URISource(pdffiles), readerControl = list(reader = readPDF))
+LOTR.corp <- Corpus(URISource(pdffiles), readerControl = list(reader = readPDF))
+
+LOTR.tdm <- TermDocumentMatrix(LOTR.corp, control = list(removePunctuation = TRUE, stopwords = T, tolower= T, stemming = T,removeNumbers = T, bounds = list(global = c(3, Inf))))
 
 ```
 

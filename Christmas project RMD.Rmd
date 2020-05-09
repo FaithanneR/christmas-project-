@@ -1,0 +1,56 @@
+---
+title: "Lord of the Rings Analysis Project"
+author: "Timothy Zintel and Faithanne Reichl"
+date: "08/05/2020"
+output: html_document
+---
+
+GOOGLED RESOURCES = https://data.library.virginia.edu/reading-pdf-files-into-r-for-text-mining/
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This analysis requires the following PDF files of both the books and the movie scripts to run properly;
+
+#Lord of the Rings Fellowship of the Ring
+#Lord of the Rings Two towers
+#Lord of the Rings Return of the King 
+
+First we intialize the packages
+
+```{r}
+# install.packages("dplyr")
+# install.packages("broom")
+# install.packages("tidyr")
+# install.packages("ggplot2")
+# install.packages("tidytext")
+# install.packages("utf8")
+# install.packages("pdftools")
+# install.packages("tm")
+library("pdftools")
+library("ggplot2")
+library("dplyr")
+library("broom")
+library("ggplot2")
+library("utf8")
+library("tm")
+```
+
+Converting the scripts and PDFS to text. 
+```{r}
+
+pdffiles <- list.files(pattern = "pdf$")
+
+txtscripts <- lapply(pdffiles, pdf_text)
+
+```
+
+Cleaning the text documents using the text mining package.
+
+```{r}
+## Creating a Coprus to allow furhter text cleaning using the TM package
+ LOTR.corp <- Corpus(URISource(pdffiles), readerControl = list(reader = readPDF))
+
+```
+
